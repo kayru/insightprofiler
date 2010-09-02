@@ -171,7 +171,7 @@ namespace
 		{
 			if( a.thread_id == b.thread_id )
 			{
-				return a.time_enter < b.time_exit;
+				return a.time_enter < b.time_enter;
 			}
 			else
 			{
