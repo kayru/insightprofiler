@@ -4,7 +4,8 @@
 
 namespace InsightGui
 {
-
+	extern void initialize();
+	extern void terminate();
 }
 
 #endif // __INSIGHT_GUI_H__
