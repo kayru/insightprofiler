@@ -40,3 +40,9 @@ project "test-single_thread"
 	kind 			"ConsoleApp"
 	links			{ "insight" }
 	files 			{ "tests/test-single_thread.cpp" }
+
+
+project "test-single_thread_async"
+	kind 			"ConsoleApp"
+	links			{ "insight" }
+	files 			{ "tests/test-single_thread_async.cpp" }
