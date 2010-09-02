@@ -10,10 +10,8 @@
 // profiler helper macros
 
 #ifdef INSIGHT_ENABLE
-	#define INSIGHT_INIT Insight::Initializer __insight_initializer;
 	#define INSIGHT_SCOPE(name) Insight::Scope __insight_scope(name);
 #else 
-	#define INSIGHT_INIT
 	#define INSIGHT_SCOPE(name)
 #endif //INSIGHT_ENABLE
 
@@ -29,8 +27,10 @@ namespace Insight
 		const char*			name;
 	};
 
-	extern INSIGHT_API void initialize();								// call this at application startup
+	extern INSIGHT_API void initialize(bool asynchronous=true);			// call this at application startup
 	extern INSIGHT_API void terminate();								// call this at application shutdown
+
+	extern INSIGHT_API void update();									// call this once a frame
 
 	extern INSIGHT_API Token* enter(const char* name);					// start profile event (enter scope)
 	extern INSIGHT_API void   exit(Token* token);						// finish profile event (exit scope)

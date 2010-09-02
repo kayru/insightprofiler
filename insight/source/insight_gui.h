@@ -4,8 +4,9 @@
 
 namespace InsightGui
 {
-	extern void initialize();
+	extern void initialize(bool asynchronous);
 	extern void terminate();
+	extern void update();
 }
 
 #endif // __INSIGHT_GUI_H__
