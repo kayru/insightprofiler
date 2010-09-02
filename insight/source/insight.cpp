@@ -505,16 +505,6 @@ namespace Insight
 
 	Manager g_instance;
 
-	Token* enter(const char* n)
-	{
-		return g_instance.allocate_token(n);
-	}
-
-	void exit( Token* e )
-	{
-		g_instance.free_token( e );
-	}
-
 	//////////////////////////////////////////////////////////////////////////	
 
 	LRESULT APIENTRY wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -545,15 +535,26 @@ namespace Insight
 
 	//////////////////////////////////////////////////////////////////////////
 
-	extern INSIGHT_API void initialize()
+	void initialize()
 	{
 		g_instance.init();
 	}
 
-	extern INSIGHT_API void terminate()
+	void terminate()
 	{
 		g_instance.destroy();
 	}
+
+	Token* enter(const char* n)
+	{
+		return g_instance.allocate_token(n);
+	}
+
+	void exit( Token* e )
+	{
+		g_instance.free_token( e );
+	}
+
 
 }
 
