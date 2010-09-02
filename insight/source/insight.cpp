@@ -5,9 +5,14 @@
 #include <vector>
 
 #include "insight/redist/insight.h"
+using namespace Insight;
 
 #include "insight_utils.h"
+using namespace InsightUtils;
+
 #include "insight_gui.h"
+#include "insight_graph_d3d9.h"
+using namespace InsightGui;
 
 #pragma warning(disable:4101)
 #pragma warning(disable:4189)
@@ -20,7 +25,6 @@
 #define WM_MOUSEWHEEL 0x020A
 #endif //WM_MOUSEWHEEL
 
-using namespace Insight;
 namespace
 {
 	//////////////////////////////////////////////////////////////////////////
@@ -128,7 +132,7 @@ namespace
 	TokenBuffer		g_token_back_buffer;
 	AtomicInt		g_skipped_tokens;
 	Text<MAX_REPORT_TEXT>	g_text;
-	InsightGraphD3D9 g_ui;
+	GraphD3D9 g_graph;
 	Mutex g_report_lock;
 	bool g_dragging;
 	bool g_selecting;
@@ -156,7 +160,7 @@ namespace
 
 	void build_report()
 	{
-		g_ui.reset();
+		g_graph.reset();
 		g_text.reset();
 
 		long num_tokens = g_token_back_buffer.pos.val;
@@ -180,7 +184,7 @@ namespace
 			if( t.time_enter < min_time ) min_time = t.time_enter;
 			if( t.time_exit > max_time ) max_time = t.time_exit;
 		}
-		g_ui.set_timeframe(min_time, max_time, g_cycles_per_ms);
+		g_graph.set_timeframe(min_time, max_time, g_cycles_per_ms);
 
 		for( long i=0; i<num_tokens; ++i )
 		{
@@ -208,7 +212,7 @@ namespace
 				DebugBreak();
 			}
 
-			g_ui.add_bar(thread_idx, call_stack.size()-1, t);
+			g_graph.add_bar(thread_idx, call_stack.size()-1, t);
 		}
 	}
 
@@ -280,7 +284,7 @@ namespace
 		{
 		case WM_CREATE:
 			SetTimer(hwnd, WM_TIMER, 1000, NULL);
-			g_ui.init(hwnd);
+			g_graph.init(hwnd);
 			return 0;
 
 		case WM_PAINT:
@@ -288,14 +292,14 @@ namespace
 				hdc = BeginPaint(hwnd, &ps);
 				g_text.reset();
 
-				if( g_ui.selection_length()>0 )
+				if( g_graph.selection_length()>0 )
 				{
-					g_text.print("Range: %.4f ms\n", g_ui.selection_length());
+					g_text.print("Range: %.4f ms\n", g_graph.selection_length());
 				}
-				if( g_ui.selected() )
+				if( g_graph.selected() )
 				{
-					g_text.print("Selected: %s\n", g_ui.selected()->name);
-					float duration = g_ui.selected()->x2 - g_ui.selected()->x1;
+					g_text.print("Selected: %s\n", g_graph.selected()->name);
+					float duration = g_graph.selected()->x2 - g_graph.selected()->x1;
 					g_text.print("Duration: %.4f ms\n", duration);
 				}
 				if( active==false && g_paused==false )
@@ -306,7 +310,7 @@ namespace
 				g_text.draw(hdc,text_rect);
 				EndPaint (hwnd, &ps);
 
-				g_ui.render();
+				g_graph.render();
 			}
 			return 0;
 
@@ -321,12 +325,12 @@ namespace
 			return 0;
 
 		case WM_SIZE:
-			g_ui.resize(graph_rect);
+			g_graph.resize(graph_rect);
 			InvalidateRect(hwnd, NULL, false);
 			return 0;
 
 		case WM_MOUSEWHEEL:
-			g_ui.zoom(GET_WHEEL_DELTA_WPARAM(wparam));
+			g_graph.zoom(GET_WHEEL_DELTA_WPARAM(wparam));
 			InvalidateRect(hwnd, &text_rect, false);
 			return 0;
 
@@ -334,15 +338,15 @@ namespace
 			if( g_selecting )
 			{
 				g_selection_b = LOWORD(lparam);
-				g_ui.select(g_selection_a, g_selection_b);
+				g_graph.select(g_selection_a, g_selection_b);
 			}
 			else if( g_dragging )
 			{
-				g_ui.drag(LOWORD(lparam) - g_mouse_down_x, HIWORD(lparam) - g_mouse_down_y);
+				g_graph.drag(LOWORD(lparam) - g_mouse_down_x, HIWORD(lparam) - g_mouse_down_y);
 				g_mouse_down_x = LOWORD(lparam);
 				g_mouse_down_y = HIWORD(lparam);
 			}
-			g_ui.set_cursor(LOWORD(lparam), HIWORD(lparam));
+			g_graph.set_cursor(LOWORD(lparam), HIWORD(lparam));
 			InvalidateRect(hwnd, &text_rect, false);
 			return 0;
 
@@ -364,7 +368,7 @@ namespace
 
 		case WM_RBUTTONUP:
 			g_selecting = false;
-			g_ui.select(g_selection_a, g_selection_b);
+			g_graph.select(g_selection_a, g_selection_b);
 			InvalidateRect(g_hwnd, 0, FALSE);
 			return 0;
 
@@ -373,7 +377,7 @@ namespace
 			return 0;
 
 		case WM_DESTROY:
-			g_ui.destroy();
+			g_graph.destroy();
 			return 0;
 
 		default:

@@ -3,7 +3,7 @@
 
 #include <intrin.h>
 
-namespace Insight
+namespace InsightUtils
 {
 	struct AtomicInt
 	{	
