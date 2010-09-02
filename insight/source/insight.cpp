@@ -60,6 +60,7 @@ namespace Insight
 		if( e != &InsightBackend::g_token_dummy )
 		{
 			e->time_exit = __rdtsc();
+			InsightBackend::g_token_buffer.push(*e);
 			InsightBackend::g_token_pool.free(e);
 		}
 	}
