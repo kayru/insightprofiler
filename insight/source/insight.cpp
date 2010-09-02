@@ -36,7 +36,7 @@ namespace Insight
 		
 	HANDLE	g_thread = 0;
 	
-	cycle_metric_t g_cycles_per_ms = 1;
+	cycle_metric g_cycles_per_ms = 1;
 
 	Rand g_rand(1);
 	
@@ -47,12 +47,12 @@ namespace Insight
 			
 	//////////////////////////////////////////////////////////////////////////
 	
-	__forceinline cycle_metric_t cycle_count()
+	__forceinline cycle_metric cycle_count()
 	{
 		return __rdtsc();
 	}
 
-	float cycles_to_ms(cycle_metric_t cycles)
+	float cycles_to_ms(cycle_metric cycles)
 	{
 		float res = float (double(cycles) / double(g_cycles_per_ms));
 		return res;
@@ -66,7 +66,7 @@ namespace Insight
 		{
 			if( a.thread_id == b.thread_id )
 			{
-				return a.time_start < b.time_start;
+				return a.time_enter < b.time_exit;
 			}
 			else
 			{
@@ -155,7 +155,7 @@ namespace Insight
 		{
 			m_skipped_tokens.set(0);
 
-			g_cycles_per_ms = cycle_count() / cycle_metric_t(get_time_ms());
+			g_cycles_per_ms = cycle_count() / cycle_metric(get_time_ms());
 			m_dragging = false;
 			m_selecting = false;
 			m_mouse_down_x = 0;
@@ -223,7 +223,7 @@ namespace Insight
 			if( e )
 			{
 				e->name = name;
-				e->time_start = cycle_count();
+				e->time_enter = cycle_count();
 				e->thread_id = GetCurrentThreadId();
 			}
 			else
@@ -238,7 +238,7 @@ namespace Insight
 		{
 			if( e != &m_token_dummy )
 			{
-				e->time_stop = cycle_count();
+				e->time_exit = cycle_count();
 				if( m_token_buffer.push(*e) == false ) 
 				{
 					m_skipped_tokens.inc();
@@ -266,15 +266,15 @@ namespace Insight
 			static double  s_prev_time = curr_time;
 			double elapsed_time = curr_time-s_prev_time;
 
-			cycle_metric_t curr_cycles = cycle_count();
-			static cycle_metric_t s_prev_cycles = curr_cycles;
-			cycle_metric_t elapsed_cycles = curr_cycles - s_prev_cycles;
+			cycle_metric curr_cycles = cycle_count();
+			static cycle_metric s_prev_cycles = curr_cycles;
+			cycle_metric elapsed_cycles = curr_cycles - s_prev_cycles;
 
 			static double time_threshold = 0;
 
 			if( elapsed_time > time_threshold ) // recalculate cycles per second approximately every 5 seconds 
 			{
-				g_cycles_per_ms = cycle_metric_t(elapsed_cycles / elapsed_time);
+				g_cycles_per_ms = cycle_metric(elapsed_cycles / elapsed_time);
 				s_prev_cycles = curr_cycles;
 				s_prev_time = curr_time;
 
@@ -282,93 +282,6 @@ namespace Insight
 				{
 					time_threshold = time_threshold*1.1 + 1;
 				}
-			}
-		}
-
-		void pause()
-		{
-			m_paused = true;
-		}
-
-		void resume()
-		{
-			m_paused = false;
-		}
-
-		void load_report(const char* filename)
-		{	
-			m_ui.reset();
-
-			for( size_t i=0; i<m_temporary_strings.size(); ++i )
-			{
-				free(m_temporary_strings[i]);
-			}
-			m_temporary_strings.clear();
-
-			HANDLE hf = CreateFileA(filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-			if( hf!=INVALID_HANDLE_VALUE )
-			{	
-				long count;
-				DWORD br;
-				ReadFile(hf, &count, sizeof(count), &br, NULL);
-
-				m_token_back_buffer.pos.val = count;
-
-				for( long i=0; i<count; ++i )
-				{
-					Token& t = m_token_back_buffer.data[i];
-
-					ReadFile(hf, &t.time_start, sizeof(t.time_start), &br, NULL);
-					ReadFile(hf, &t.time_stop,  sizeof(t.time_stop),  &br, NULL);
-					ReadFile(hf, &t.thread_id,  sizeof(t.thread_id),  &br, NULL);
-
-					long name_len = 0;
-					ReadFile(hf, &name_len, sizeof(name_len), &br, NULL);
-
-					char* tmp_str = (char*)malloc(name_len+1);
-					m_temporary_strings.push_back(tmp_str);
-
-					memset(tmp_str, 0, name_len+1);
-
-					ReadFile(hf, tmp_str, name_len, &br, NULL);
-
-					t.name = tmp_str;
-				}
-
-				ReadFile(hf, &g_cycles_per_ms, sizeof(g_cycles_per_ms), &br, NULL);
-
-				CloseHandle(hf);
-			}
-			build_report();
-
-			InvalidateRect(m_hwnd, NULL, false);
-		}
-
-		void dump_report(const char* filename)
-		{
-			HANDLE hf = CreateFileA(filename, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-			if( hf!=INVALID_HANDLE_VALUE )
-			{					
-				long count = m_token_back_buffer.pos.val;
-				DWORD bw;
-				WriteFile(hf, &count, sizeof(count), &bw, NULL);
-				
-				for( long i=0; i<count; ++i )
-				{
-					Token& t = m_token_back_buffer.data[i];
-					
-					WriteFile(hf, &t.time_start, sizeof(t.time_start), &bw, NULL);
-					WriteFile(hf, &t.time_stop, sizeof(t.time_stop), &bw, NULL);
-					WriteFile(hf, &t.thread_id, sizeof(t.thread_id), &bw, NULL);
-					
-					long name_len = long(strlen(t.name));
-					WriteFile(hf, &name_len, sizeof(name_len), &bw, NULL);
-					WriteFile(hf, t.name, name_len, &bw, NULL);
-				}
-				
-				WriteFile(hf, &g_cycles_per_ms, sizeof(g_cycles_per_ms), &bw, NULL);
-				
-				CloseHandle(hf);
 			}
 		}
 
@@ -390,13 +303,13 @@ namespace Insight
 			size_t num_bars = 0;
 			Stack<Token, 64> call_stack;
 
-			cycle_metric_t min_time = cycle_metric_t(-1);
-			cycle_metric_t max_time = 0;
+			cycle_metric min_time = cycle_metric(-1);
+			cycle_metric max_time = 0;
 			for( long i=0; i<num_tokens; ++i )
 			{
 				Token& t = m_token_back_buffer.data[i];
-				if( t.time_start < min_time ) min_time = t.time_start;
-				if( t.time_stop > max_time ) max_time = t.time_stop;
+				if( t.time_enter < min_time ) min_time = t.time_enter;
+				if( t.time_exit > max_time ) max_time = t.time_exit;
 			}
 			m_ui.set_timeframe(min_time, max_time, g_cycles_per_ms);
 
@@ -411,12 +324,12 @@ namespace Insight
 					call_stack.reset();
 				}
 
-				while( call_stack.size() && t.time_start > call_stack.peek().time_stop  )
+				while( call_stack.size() && t.time_enter > call_stack.peek().time_exit  )
 				{
 					call_stack.pop();
 				}
 
-				if( call_stack.size()==0 || t.time_stop < call_stack.peek().time_stop )
+				if( call_stack.size()==0 || t.time_exit < call_stack.peek().time_exit )
 				{
 					call_stack.push(t);
 				}
@@ -457,13 +370,7 @@ namespace Insight
 			bool active = m_hwnd != GetForegroundWindow();
 
 			switch(msg)
-			{	
-			case WM_KEYDOWN:
-				if(wparam == 'S')
-				{
-					dump_report("dump.insight");
-				}
-				return 0;
+			{
 			case WM_CREATE:
 				SetTimer(hwnd, WM_TIMER, 1000, NULL);
 				m_ui.init(hwnd);
@@ -578,7 +485,7 @@ namespace Insight
 		TokenBuffer		m_token_buffer;
 		TokenBuffer		m_token_back_buffer;
 
-		AtomicInt			m_skipped_tokens;
+		AtomicInt		m_skipped_tokens;
 
 		Text<MAX_REPORT_TEXT>	m_text;
 		
@@ -638,12 +545,12 @@ namespace Insight
 
 	//////////////////////////////////////////////////////////////////////////
 
-	Initializer::Initializer()
+	extern INSIGHT_API void initialize()
 	{
 		g_instance.init();
 	}
 
-	Initializer::~Initializer()
+	extern INSIGHT_API void terminate()
 	{
 		g_instance.destroy();
 	}

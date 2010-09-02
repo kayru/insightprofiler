@@ -19,6 +19,8 @@
 
 namespace Insight
 {
+	typedef unsigned __int64 cycle_metric;
+
 	struct Token
 	{
 		unsigned __int64	time_enter;

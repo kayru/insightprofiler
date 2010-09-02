@@ -71,7 +71,7 @@ namespace Insight
 
 		void draw_rect(float x1, float y1, float x2, float y2, DWORD colour);
 		
-		void set_timeframe(cycle_metric_t min_time, cycle_metric_t max_time, cycle_metric_t cycles_per_ms);
+		void set_timeframe(cycle_metric min_time, cycle_metric max_time, cycle_metric cycles_per_ms);
 		
 		void zoom(float delta_z);
 		void drag(long x, long y);
@@ -107,9 +107,9 @@ namespace Insight
 		float					m_pos_x;
 		float					m_pos_y;
 
-		cycle_metric_t 			m_min_time;
-		cycle_metric_t 			m_max_time;
-		cycle_metric_t 			m_cycles_per_ms;
+		cycle_metric 			m_min_time;
+		cycle_metric 			m_max_time;
+		cycle_metric 			m_cycles_per_ms;
 
 		static const size_t MAX_BARS=16384;
 		Stack<BarInfo, MAX_BARS>	m_bars;

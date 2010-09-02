@@ -246,9 +246,9 @@ namespace Insight
 	{
 		m_max_thread_idx = std::max(thread_idx, m_max_thread_idx);
 				
-		float duration_ms	= float(double(t.time_stop - t.time_start) / double(m_cycles_per_ms));
-		float start_ms		= float(double(t.time_start - m_min_time) / double(m_cycles_per_ms));
-		float stop_ms		= float(double(t.time_stop - m_min_time) / double(m_cycles_per_ms));
+		float duration_ms	= float(double(t.time_exit - t.time_enter) / double(m_cycles_per_ms));
+		float start_ms		= float(double(t.time_enter - m_min_time) / double(m_cycles_per_ms));
+		float stop_ms		= float(double(t.time_exit - m_min_time) / double(m_cycles_per_ms));
 
 		float pos_x1 = start_ms;
 		float pos_x2 = stop_ms;
@@ -288,7 +288,7 @@ namespace Insight
 		m_selection_b = 0;
 	}
 
-	void InsightGraphD3D9::set_timeframe( cycle_metric_t min_time, cycle_metric_t max_time, cycle_metric_t cycles_per_ms )
+	void InsightGraphD3D9::set_timeframe( cycle_metric min_time, cycle_metric max_time, cycle_metric cycles_per_ms )
 	{
 		m_min_time = min_time;
 		m_max_time = max_time;
