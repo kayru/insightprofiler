@@ -35,3 +35,8 @@ project "insight"
 	links			{ "d3d9", "d3dx9", "dxerr" }
 	files 			{ "insight/redist/*.h", "insight/source/*.cpp", "insight/source/*.h", "insight/source/*.inl" }
 
+
+project "test-single_thread"
+	kind 			"ConsoleApp"
+	links			{ "insight" }
+	files 			{ "tests/test-single_thread.cpp" }

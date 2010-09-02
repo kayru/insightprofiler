@@ -2,6 +2,7 @@
 
 #include "insight/redist/insight.h"
 #include "insight_graph_d3d9.h"
+#include "insight_backend.h"
 
 #define NOMINMAX
 #include <stdio.h>
@@ -95,29 +96,7 @@ namespace
 		size_t	m_pos;
 	};
 
-
-	struct TokenSorter
-	{
-		bool operator()(const Insight::Token& a, const Insight::Token& b)
-		{
-			if( a.thread_id == b.thread_id )
-			{
-				return a.time_enter < b.time_exit;
-			}
-			else
-			{
-				return a.thread_id < b.thread_id;
-			}
-		}
-	};
-
-
-
-	//////////////////////////////////////////////////////////////////////////
-
-
-
-
+	bool g_asynchronous = false;
 	std::vector<char*> g_temporary_strings;
 	HANDLE	g_thread = 0;
 	Text<MAX_REPORT_TEXT> g_text;
@@ -185,6 +164,77 @@ namespace
 	}
 
 
+
+	struct TokenSorter
+	{
+		bool operator()(const Insight::Token& a, const Insight::Token& b)
+		{
+			if( a.thread_id == b.thread_id )
+			{
+				return a.time_enter < b.time_exit;
+			}
+			else
+			{
+				return a.thread_id < b.thread_id;
+			}
+		}
+	};
+
+
+	void build_report()
+	{
+		long num_tokens = InsightBackend::g_token_back_buffer.pos.val;
+
+		if( num_tokens )
+		{
+			std::sort(&InsightBackend::g_token_back_buffer.data[0], &InsightBackend::g_token_back_buffer.data[num_tokens], TokenSorter());
+		}
+
+		size_t thread_idx  = size_t(-1);
+		unsigned long curr_thread = unsigned long(-1);
+
+		InsightUtils::Stack<Insight::Token, 64> call_stack;
+
+		Insight::cycle_metric min_time = Insight::cycle_metric(-1);
+		Insight::cycle_metric max_time = 0;
+		for( long i=0; i<num_tokens; ++i )
+		{
+			Insight::Token& t = InsightBackend::g_token_back_buffer.data[i];
+			if( t.time_enter < min_time ) min_time = t.time_enter;
+			if( t.time_exit > max_time ) max_time = t.time_exit;
+		}
+		g_graph.set_timeframe(min_time, max_time, g_cycles_per_ms);
+
+		for( long i=0; i<num_tokens; ++i )
+		{
+			Insight::Token& t = InsightBackend::g_token_back_buffer.data[i];
+
+			if( curr_thread != t.thread_id )
+			{
+				curr_thread = t.thread_id;
+				++thread_idx;
+				call_stack.reset();
+			}
+
+			while( call_stack.size() && t.time_enter > call_stack.peek().time_exit  )
+			{
+				call_stack.pop();
+			}
+
+			if( call_stack.size()==0 || t.time_exit < call_stack.peek().time_exit )
+			{
+				call_stack.push(t);
+			}
+
+			if( (DWORD)t.name < 0x00010000 )
+			{
+				DebugBreak();
+			}
+
+			g_graph.add_bar(thread_idx, call_stack.size()-1, t);
+		}
+	}
+
 	//////////////////////////////////////////////////////////////////////////
 
 	LRESULT APIENTRY wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -192,7 +242,6 @@ namespace
 		HDC hdc;
 		PAINTSTRUCT ps;
 		RECT client_rect;
-		RECT invalid_rect={-1,-1,-1,-1};
 
 		GetClientRect(hwnd, &client_rect);
 
@@ -241,8 +290,11 @@ namespace
 		case WM_TIMER:
 			if( active && g_paused==false )
 			{
-				snapshot();
+				InsightBackend::snapshot();
+
 				update_timing();
+				g_graph.reset();
+				g_text.reset();
 				build_report();
 			}
 			InvalidateRect(hwnd, &text_rect, false);
@@ -309,7 +361,7 @@ namespace
 		}
 	}
 
-	DWORD WINAPI threadproc(void*)
+	void start_gui()
 	{
 		HINSTANCE hinst = GetModuleHandle(NULL);
 
@@ -335,20 +387,32 @@ namespace
 
 		ShowWindow(g_hwnd, SW_SHOWNORMAL);
 		UpdateWindow(g_hwnd);
+	}
 
+	bool update_gui_window()
+	{
+		bool should_continue = true;
+		MSG msg;
+		while( PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) )
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+			if( msg.message == WM_QUIT )
+			{
+				should_continue = false;
+			}
+		}
+
+		return should_continue;
+	}
+
+	DWORD WINAPI threadproc(void*)
+	{
+		start_gui();
 		bool should_continue = true;
 		while(should_continue)
 		{
-			MSG msg;
-			while( PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) )
-			{
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-				if( msg.message == WM_QUIT )
-				{
-					should_continue = false;
-				}
-			}
+			should_continue = update_gui_window();
 			Sleep(1);
 		}
 		return 0;
@@ -361,69 +425,10 @@ namespace
 
 namespace InsightGui
 {
-
-	void build_report()
+	void initialize(bool asynchronous)
 	{
-		g_graph.reset();
-		g_text.reset();
-
-		long num_tokens = g_token_back_buffer.pos.val;
-
-		if( num_tokens )
-		{
-			std::sort(&g_token_back_buffer.data[0], &g_token_back_buffer.data[num_tokens], TokenSorter());
-		}
-
-		size_t	thread_idx  = size_t(-1);
-		DWORD	curr_thread = DWORD(-1);
-
-		size_t num_bars = 0;
-		Stack<Token, 64> call_stack;
-
-		cycle_metric min_time = cycle_metric(-1);
-		cycle_metric max_time = 0;
-		for( long i=0; i<num_tokens; ++i )
-		{
-			Token& t = g_token_back_buffer.data[i];
-			if( t.time_enter < min_time ) min_time = t.time_enter;
-			if( t.time_exit > max_time ) max_time = t.time_exit;
-		}
-		g_graph.set_timeframe(min_time, max_time, g_cycles_per_ms);
-
-		for( long i=0; i<num_tokens; ++i )
-		{
-			Token& t = g_token_back_buffer.data[i];
-
-			if( curr_thread != t.thread_id )
-			{
-				curr_thread = t.thread_id;
-				++thread_idx;
-				call_stack.reset();
-			}
-
-			while( call_stack.size() && t.time_enter > call_stack.peek().time_exit  )
-			{
-				call_stack.pop();
-			}
-
-			if( call_stack.size()==0 || t.time_exit < call_stack.peek().time_exit )
-			{
-				call_stack.push(t);
-			}
-
-			if( (DWORD)t.name < 0x00010000 )
-			{
-				DebugBreak();
-			}
-
-			g_graph.add_bar(thread_idx, call_stack.size()-1, t);
-		}
-	}
-
-
-	void initialize()
-	{
-		g_cycles_per_ms = cycle_count() / cycle_metric(get_time_ms());
+		g_asynchronous = asynchronous;
+		g_cycles_per_ms = __rdtsc() / Insight::cycle_metric(get_time_ms());
 		g_dragging = false;
 		g_selecting = false;
 		g_mouse_down_x = 0;
@@ -433,7 +438,15 @@ namespace InsightGui
 		g_selection_b = 0;
 
 		g_paused = false;
-		g_thread = CreateThread(0, 0, threadproc, 0, 0, 0);
+
+		if( g_asynchronous )
+		{
+			g_thread = CreateThread(0, 0, threadproc, 0, 0, 0);
+		}
+		else
+		{
+			start_gui();
+		}
 
 	}
 
@@ -448,5 +461,12 @@ namespace InsightGui
 		DestroyWindow(g_hwnd);
 	}
 
+	extern void update()
+	{
+		if( g_asynchronous == false )
+		{
+			update_gui_window();
+		}
+	}
 }
 
