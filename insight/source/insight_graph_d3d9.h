@@ -12,8 +12,6 @@
 #include "insight/redist/insight.h"
 
 #include "insight_utils.h"
-using namespace InsightUtils;
-
 #pragma warning(disable:4100)
 
 namespace InsightGui
@@ -72,7 +70,7 @@ namespace InsightGui
 
 		void draw_rect(float x1, float y1, float x2, float y2, DWORD colour);
 		
-		void set_timeframe(cycle_metric min_time, cycle_metric max_time, cycle_metric cycles_per_ms);
+		void set_timeframe(Insight::cycle_metric min_time, Insight::cycle_metric max_time, Insight::cycle_metric cycles_per_ms);
 		
 		void zoom(float delta_z);
 		void drag(long x, long y);
@@ -80,7 +78,7 @@ namespace InsightGui
 		void set_cursor(long cx, long cy);
 
 		void reset();
-		bool add_bar(size_t thread_idx, size_t depth, const Token& t);
+		bool add_bar(size_t thread_idx, size_t depth, const Insight::Token& t);
 
 		void update_viewport();
 
@@ -108,15 +106,15 @@ namespace InsightGui
 		float					m_pos_x;
 		float					m_pos_y;
 
-		cycle_metric 			m_min_time;
-		cycle_metric 			m_max_time;
-		cycle_metric 			m_cycles_per_ms;
+		Insight::cycle_metric 	m_min_time;
+		Insight::cycle_metric 	m_max_time;
+		Insight::cycle_metric 	m_cycles_per_ms;
 
 		static const size_t MAX_BARS=16384;
-		Stack<BarInfo, MAX_BARS>	m_bars;
-		Stack<Vertex,  MAX_BARS*6>	m_bar_vertices;
-		Stack<Vertex,  32>			m_tmp_vertices;
-		Stack<Vertex,  32>			m_bg_vertices;
+		InsightUtils::Stack<BarInfo, MAX_BARS>	m_bars;
+		InsightUtils::Stack<Vertex,  MAX_BARS*6>	m_bar_vertices;
+		InsightUtils::Stack<Vertex,  32>			m_tmp_vertices;
+		InsightUtils::Stack<Vertex,  32>			m_bg_vertices;
 
 		size_t m_max_thread_idx;
 

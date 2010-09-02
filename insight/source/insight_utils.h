@@ -45,32 +45,6 @@ namespace InsightUtils
 
 	//////////////////////////////////////////////////////////////////////////
 
-	struct Mutex
-	{
-		inline Mutex()
-		{
-			//InitializeCriticalSectionAndSpinCount(&cs,10000);
-			InitializeCriticalSection(&cs);
-		}
-		inline ~Mutex()
-		{
-			DeleteCriticalSection(&cs);
-		}
-
-		inline void enter()
-		{
-			EnterCriticalSection(&cs);
-		}
-		inline void exit()
-		{
-			LeaveCriticalSection(&cs);
-		}
-
-		CRITICAL_SECTION cs;
-	};
-
-	//////////////////////////////////////////////////////////////////////////
-
 	struct Spinlock
 	{
 		inline Spinlock()

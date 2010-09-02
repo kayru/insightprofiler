@@ -1,6 +1,4 @@
 #include "insight/redist/insight.h"
-using namespace Insight;
-
 #include "insight_graph_d3d9.h"
 #include "insight_background_png.h"
 #include "insight_bar_png.h"
@@ -243,7 +241,7 @@ namespace InsightGui
 		if( m_zoom > 2000.0f ) m_zoom = 2000.0f;
 	}
 	
-	bool GraphD3D9::add_bar( size_t thread_idx, size_t depth, const Token& t )
+	bool GraphD3D9::add_bar( size_t thread_idx, size_t depth, const Insight::Token& t )
 	{
 		m_max_thread_idx = std::max(thread_idx, m_max_thread_idx);
 				
@@ -289,7 +287,7 @@ namespace InsightGui
 		m_selection_b = 0;
 	}
 
-	void GraphD3D9::set_timeframe( cycle_metric min_time, cycle_metric max_time, cycle_metric cycles_per_ms )
+	void GraphD3D9::set_timeframe( Insight::cycle_metric min_time, Insight::cycle_metric max_time, Insight::cycle_metric cycles_per_ms )
 	{
 		m_min_time = min_time;
 		m_max_time = max_time;
