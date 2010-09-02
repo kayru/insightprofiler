@@ -15,12 +15,8 @@ int main()
 		{
 			Insight::Scope scope_timing("Inner loop (sleep 20ms)");
 			Sleep(20);
-
-			Insight::update();
 		}
 		Sleep(50);
-
-		Insight::update();
 	}
 
 	Insight::terminate();
