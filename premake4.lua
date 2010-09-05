@@ -46,3 +46,9 @@ project "test-single_thread_async"
 	kind 			"ConsoleApp"
 	links			{ "insight" }
 	files 			{ "tests/test-single_thread_async.cpp" }
+
+
+project "test-multiple_threads"
+	kind 			"ConsoleApp"
+	links			{ "insight" }
+	files 			{ "tests/test-multiple_threads.cpp" }
