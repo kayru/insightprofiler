@@ -23,7 +23,7 @@
 
 namespace
 {
-	const size_t MAX_REPORT_TEXT =	16384;
+	const size_t MAX_REPORT_TEXT =	2048;
 
 	template <size_t SIZE>
 	class Text
@@ -91,18 +91,13 @@ namespace
 	bool g_paused;
 	Insight::cycle_metric	g_cycles_per_ms = 1;
 
-
-
-
 	//////////////////////////////////////////////////////////////////////////
-
 
 	float cycles_to_ms(Insight::cycle_metric cycles)
 	{
 		float res = float (double(cycles) / double(g_cycles_per_ms));
 		return res;
 	}
-
 
 	double get_time_ms()
 	{

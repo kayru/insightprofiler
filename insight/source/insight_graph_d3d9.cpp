@@ -11,7 +11,7 @@
 
 namespace
 {
-	static bool check_result( HRESULT hr )
+	inline bool check_result( HRESULT hr )
 	{
 		if( FAILED(hr) && hr!=D3DERR_DEVICELOST && hr!=D3DERR_DEVICENOTRESET )
 		{
@@ -44,7 +44,6 @@ namespace InsightGui
 		else
 		{
 			// this is a "one-at-a-time" hash
-			// http://en.wikipedia.org/wiki/Jenkins_hash_function
 			DWORD hash = 0x811c9dc5;
 			for( size_t i=0; str[i]!=0 && i<128; ++i )
 			{	

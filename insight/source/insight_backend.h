@@ -7,6 +7,7 @@
 namespace InsightBackend
 {
 	const size_t MAX_PROFILE_TOKENS =	16384;
+
 	typedef InsightUtils::Pool<Insight::Token, MAX_PROFILE_TOKENS> TokenPool;
 	typedef InsightUtils::Buffer<Insight::Token, MAX_PROFILE_TOKENS> TokenBuffer;
 
