@@ -164,7 +164,7 @@ namespace InsightUtils
 	template <typename T, size_t SIZE>
 	struct Stack
 	{
-		inline Stack()	: pos(0) { }
+		inline Stack() : pos(0) { }
 
 		inline bool push(const T& v)
 		{

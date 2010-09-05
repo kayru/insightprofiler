@@ -44,6 +44,7 @@ namespace InsightGui
 		else
 		{
 			// this is a "one-at-a-time" hash
+			// http://en.wikipedia.org/wiki/Jenkins_hash_function
 			DWORD hash = 0x811c9dc5;
 			for( size_t i=0; str[i]!=0 && i<128; ++i )
 			{	
