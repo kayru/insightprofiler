@@ -56,6 +56,7 @@ namespace InsightUtils
 		{
 			while(lock.cas(1,0)==1)
 			{
+				// twiddle thumbs
 			}
 		}
 		inline void exit()
@@ -163,7 +164,7 @@ namespace InsightUtils
 	template <typename T, size_t SIZE>
 	struct Stack
 	{
-		inline Stack()	: pos(0) { }
+		inline Stack() : pos(0) { }
 
 		inline bool push(const T& v)
 		{
@@ -234,33 +235,6 @@ namespace InsightUtils
 	};
 
 	//////////////////////////////////////////////////////////////////////////
-
-	// Random number generator as described here: http://support.microsoft.com/kb/28150
-	class Rand
-	{
-	public:
-
-		inline Rand(unsigned long seed) 
-			: m_seed(seed)
-		{}
-
-		inline unsigned long operator()()
-		{
-			m_seed=214013*m_seed+2531011;
-			return (m_seed ^ m_seed>>16);
-		}
-
-		inline float get_float(float min, float max)
-		{
-			m_seed=214013*m_seed+2531011;
-			return min+(m_seed>>16)*(1.0f/65535.0f)*(max-min);
-		}
-
-	private:
-
-		unsigned long m_seed;
-
-	};
 
 }
 #endif // __INSIGHT_UTILS_H__

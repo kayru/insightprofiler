@@ -23,7 +23,7 @@
 
 namespace
 {
-	const size_t MAX_REPORT_TEXT =	16384;
+	const size_t MAX_REPORT_TEXT =	2048;
 
 	template <size_t SIZE>
 	class Text
@@ -48,27 +48,6 @@ namespace
 			va_start(ap, str);
 			int len = vsprintf_s(buf, str, ap);
 			va_end(ap);
-
-			if(m_pos + len < MAX_REPORT_TEXT)
-			{
-				memcpy(m_buffer+m_pos, buf, len);
-				m_pos += len;
-			}
-		}
-		void print_padded(int pad, char ch, const char* str, ...)
-		{	
-			char buf[1024];
-
-			va_list ap;			
-			va_start(ap, str);
-			int len = vsprintf_s(buf, str, ap);
-			va_end(ap);
-
-			if( len < pad)
-			{
-				memset(buf+len, ch, pad-len);
-			}
-			len = pad;
 
 			if(m_pos + len < MAX_REPORT_TEXT)
 			{
@@ -112,18 +91,13 @@ namespace
 	bool g_paused;
 	Insight::cycle_metric	g_cycles_per_ms = 1;
 
-
-
-
 	//////////////////////////////////////////////////////////////////////////
-
 
 	float cycles_to_ms(Insight::cycle_metric cycles)
 	{
 		float res = float (double(cycles) / double(g_cycles_per_ms));
 		return res;
 	}
-
 
 	double get_time_ms()
 	{
@@ -224,11 +198,6 @@ namespace
 			if( call_stack.size()==0 || t.time_exit < call_stack.peek().time_exit )
 			{
 				call_stack.push(t);
-			}
-
-			if( (DWORD)t.name < 0x00010000 )
-			{
-				DebugBreak();
 			}
 
 			g_graph.add_bar(thread_idx, call_stack.size()-1, t);
@@ -417,11 +386,7 @@ namespace
 		}
 		return 0;
 	}
-
-
-
 }
-
 
 namespace InsightGui
 {

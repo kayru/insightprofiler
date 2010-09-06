@@ -11,7 +11,7 @@
 
 namespace
 {
-	static bool check_result( HRESULT hr )
+	inline bool check_result( HRESULT hr )
 	{
 		if( FAILED(hr) && hr!=D3DERR_DEVICELOST && hr!=D3DERR_DEVICENOTRESET )
 		{
