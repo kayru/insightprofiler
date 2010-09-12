@@ -32,6 +32,7 @@ end
 
 project "insight"	
 	kind 			"SharedLib"
+	uuid 			"1D251D82-D63A-41a3-BA5B-D49984DF809E"
 	defines			{ "INSIGHT_DLL" }
 	links			{ "d3d9", "d3dx9", "dxerr" }
 	files 			{ "../insight/redist/*.h", "../insight/source/*.cpp", "../insight/source/*.h", "../insight/source/*.inl" }
@@ -39,17 +40,20 @@ project "insight"
 
 project "test-single_thread"
 	kind 			"ConsoleApp"
+	uuid 			"DC27DD14-B07C-4c29-9C04-0863080C2068"
 	links			{ "insight" }
 	files 			{ "../tests/test-single_thread.cpp" }
 
 
 project "test-single_thread_async"
 	kind 			"ConsoleApp"
+	uuid 			"435D37F9-0E5C-45f0-9876-8A51F9FAAE26"
 	links			{ "insight" }
 	files 			{ "../tests/test-single_thread_async.cpp" }
 
 
 project "test-multiple_threads"
 	kind 			"ConsoleApp"
+	uuid 			"703530D4-FD5B-4b1c-9D1A-5E47944DD31E"
 	links			{ "insight" }
 	files 			{ "../tests/test-multiple_threads.cpp" }

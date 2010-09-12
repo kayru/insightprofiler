@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="test-single_thread"
-	ProjectGUID="{076E6D01-F400-934F-9FE0-C47797668FC0}"
+	ProjectGUID="{DC27DD14-B07C-4C29-9C04-0863080C2068}"
 	RootNamespace="test-single_thread"
 	Keyword="Win32Proj"
 	>

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="test-multiple_threads"
-	ProjectGUID="{0DA01341-9278-F246-8C40-922F293787B0}"
+	ProjectGUID="{703530D4-FD5B-4B1C-9D1A-5E47944DD31E}"
 	RootNamespace="test-multiple_threads"
 	Keyword="Win32Proj"
 	>

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.00"
 	Name="insight"
-	ProjectGUID="{270C71A9-09BD-CC4D-95F3-931701565CB1}"
+	ProjectGUID="{1D251D82-D63A-41A3-BA5B-D49984DF809E}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>

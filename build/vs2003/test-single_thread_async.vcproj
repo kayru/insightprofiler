@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="test-single_thread_async"
-	ProjectGUID="{03B7221A-F0FB-3743-8A44-A50957444273}"
+	ProjectGUID="{435D37F9-0E5C-45F0-9876-8A51F9FAAE26}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>

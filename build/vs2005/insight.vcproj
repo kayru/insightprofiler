@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="insight"
-	ProjectGUID="{19BB23D6-30A5-4B4D-BCCE-C85099F1311E}"
+	ProjectGUID="{1D251D82-D63A-41A3-BA5B-D49984DF809E}"
 	RootNamespace="insight"
 	Keyword="Win32Proj"
 	>
