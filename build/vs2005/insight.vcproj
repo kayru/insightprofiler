@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="insight"
-	ProjectGUID="{DD5CD7BD-98D8-AB47-9988-2F286EC7C050}"
+	ProjectGUID="{19BB23D6-30A5-4B4D-BCCE-C85099F1311E}"
 	RootNamespace="insight"
 	Keyword="Win32Proj"
 	>
@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\scripts\bin\vs2005_Release_x32"
-			IntermediateDirectory="obj\x32\Release\insight"
+			OutputDirectory="..\..\bin\vs2005_Release_x32"
+			IntermediateDirectory="..\..\bin\vs2005_Release_x32\obj\x32\Release\insight"
 			ConfigurationType="2"
 			CharacterSet="2"
 			>
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG;INSIGHT_DLL"
 				ExceptionHandling="0"
 				StringPooling="true"
@@ -60,7 +60,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG;INSIGHT_DLL"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -76,7 +76,7 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="..\..\scripts\bin\vs2005_Release_x32\insight.lib"
+				ImportLibrary="..\..\bin\vs2005_Release_x32\insight.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -106,8 +106,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\scripts\bin\vs2005_Debug_x32"
-			IntermediateDirectory="obj\x32\Debug\insight"
+			OutputDirectory="..\..\bin\vs2005_Debug_x32"
+			IntermediateDirectory="..\..\bin\vs2005_Debug_x32\obj\x32\Debug\insight"
 			ConfigurationType="2"
 			CharacterSet="2"
 			>
@@ -129,7 +129,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG;INSIGHT_DLL"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -149,7 +149,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG;INSIGHT_DLL"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -164,7 +164,7 @@
 				GenerateDebugInformation="true"
 				ProgramDataBaseFileName="$(OutDir)\insight.pdb"
 				SubSystem="2"
-				ImportLibrary="..\..\scripts\bin\vs2005_Debug_x32\insight.lib"
+				ImportLibrary="..\..\bin\vs2005_Debug_x32\insight.lib"
 				TargetMachine="1"
 			/>
 			<Tool

@@ -1,19 +1,19 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "insight", "insight.vcproj", "{9D73ACA6-A782-894D-AA62-C78696AE3CAE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "insight", "insight.vcproj", "{90B16DAB-8612-CA48-B209-DC316BABD08A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-single_thread", "test-single_thread.vcproj", "{BE3B88E1-EF5A-A746-AA5D-7F2A84223E57}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-single_thread", "test-single_thread.vcproj", "{009DEC70-925A-0A4E-A09E-4E4C74C71389}"
 	ProjectSection(ProjectDependencies) = postProject
-		{9D73ACA6-A782-894D-AA62-C78696AE3CAE} = {9D73ACA6-A782-894D-AA62-C78696AE3CAE}
+		{90B16DAB-8612-CA48-B209-DC316BABD08A} = {90B16DAB-8612-CA48-B209-DC316BABD08A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-single_thread_async", "test-single_thread_async.vcproj", "{EF9A364D-6053-914A-B5A8-40994D5A341E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-single_thread_async", "test-single_thread_async.vcproj", "{03B7221A-F0FB-3743-8A44-A50957444273}"
 	ProjectSection(ProjectDependencies) = postProject
-		{9D73ACA6-A782-894D-AA62-C78696AE3CAE} = {9D73ACA6-A782-894D-AA62-C78696AE3CAE}
+		{90B16DAB-8612-CA48-B209-DC316BABD08A} = {90B16DAB-8612-CA48-B209-DC316BABD08A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-multiple_threads", "test-multiple_threads.vcproj", "{E8155216-368F-C24D-96EF-447777E6B5A3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-multiple_threads", "test-multiple_threads.vcproj", "{DCA1ADCC-DFB3-F24D-8827-27BE87997F5F}"
 	ProjectSection(ProjectDependencies) = postProject
-		{9D73ACA6-A782-894D-AA62-C78696AE3CAE} = {9D73ACA6-A782-894D-AA62-C78696AE3CAE}
+		{90B16DAB-8612-CA48-B209-DC316BABD08A} = {90B16DAB-8612-CA48-B209-DC316BABD08A}
 	EndProjectSection
 EndProject
 Global
@@ -24,22 +24,22 @@ Global
 	GlobalSection(ProjectDependencies) = postSolution
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{9D73ACA6-A782-894D-AA62-C78696AE3CAE}.Release.ActiveCfg = Release|Win32
-		{9D73ACA6-A782-894D-AA62-C78696AE3CAE}.Release.Build.0 = Release|Win32
-		{9D73ACA6-A782-894D-AA62-C78696AE3CAE}.Debug.ActiveCfg = Debug|Win32
-		{9D73ACA6-A782-894D-AA62-C78696AE3CAE}.Debug.Build.0 = Debug|Win32
-		{BE3B88E1-EF5A-A746-AA5D-7F2A84223E57}.Release.ActiveCfg = Release|Win32
-		{BE3B88E1-EF5A-A746-AA5D-7F2A84223E57}.Release.Build.0 = Release|Win32
-		{BE3B88E1-EF5A-A746-AA5D-7F2A84223E57}.Debug.ActiveCfg = Debug|Win32
-		{BE3B88E1-EF5A-A746-AA5D-7F2A84223E57}.Debug.Build.0 = Debug|Win32
-		{EF9A364D-6053-914A-B5A8-40994D5A341E}.Release.ActiveCfg = Release|Win32
-		{EF9A364D-6053-914A-B5A8-40994D5A341E}.Release.Build.0 = Release|Win32
-		{EF9A364D-6053-914A-B5A8-40994D5A341E}.Debug.ActiveCfg = Debug|Win32
-		{EF9A364D-6053-914A-B5A8-40994D5A341E}.Debug.Build.0 = Debug|Win32
-		{E8155216-368F-C24D-96EF-447777E6B5A3}.Release.ActiveCfg = Release|Win32
-		{E8155216-368F-C24D-96EF-447777E6B5A3}.Release.Build.0 = Release|Win32
-		{E8155216-368F-C24D-96EF-447777E6B5A3}.Debug.ActiveCfg = Debug|Win32
-		{E8155216-368F-C24D-96EF-447777E6B5A3}.Debug.Build.0 = Debug|Win32
+		{90B16DAB-8612-CA48-B209-DC316BABD08A}.Release.ActiveCfg = Release|Win32
+		{90B16DAB-8612-CA48-B209-DC316BABD08A}.Release.Build.0 = Release|Win32
+		{90B16DAB-8612-CA48-B209-DC316BABD08A}.Debug.ActiveCfg = Debug|Win32
+		{90B16DAB-8612-CA48-B209-DC316BABD08A}.Debug.Build.0 = Debug|Win32
+		{009DEC70-925A-0A4E-A09E-4E4C74C71389}.Release.ActiveCfg = Release|Win32
+		{009DEC70-925A-0A4E-A09E-4E4C74C71389}.Release.Build.0 = Release|Win32
+		{009DEC70-925A-0A4E-A09E-4E4C74C71389}.Debug.ActiveCfg = Debug|Win32
+		{009DEC70-925A-0A4E-A09E-4E4C74C71389}.Debug.Build.0 = Debug|Win32
+		{03B7221A-F0FB-3743-8A44-A50957444273}.Release.ActiveCfg = Release|Win32
+		{03B7221A-F0FB-3743-8A44-A50957444273}.Release.Build.0 = Release|Win32
+		{03B7221A-F0FB-3743-8A44-A50957444273}.Debug.ActiveCfg = Debug|Win32
+		{03B7221A-F0FB-3743-8A44-A50957444273}.Debug.Build.0 = Debug|Win32
+		{DCA1ADCC-DFB3-F24D-8827-27BE87997F5F}.Release.ActiveCfg = Release|Win32
+		{DCA1ADCC-DFB3-F24D-8827-27BE87997F5F}.Release.Build.0 = Release|Win32
+		{DCA1ADCC-DFB3-F24D-8827-27BE87997F5F}.Debug.ActiveCfg = Debug|Win32
+		{DCA1ADCC-DFB3-F24D-8827-27BE87997F5F}.Debug.Build.0 = Debug|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

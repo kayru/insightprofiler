@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="test-single_thread"
-	ProjectGUID="{507A630E-4E0C-2A46-A40B-C500CD9B70E8}"
+	ProjectGUID="{3A3B019E-AA5C-3743-BCA1-B6BEF38F9E72}"
 	RootNamespace="test-single_thread"
 	Keyword="Win32Proj"
 	>
@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\scripts\bin\vs2005_Release_x32"
-			IntermediateDirectory="obj\x32\Release\test-single_thread"
+			OutputDirectory="..\..\bin\vs2005_Release_x32"
+			IntermediateDirectory="..\..\bin\vs2005_Release_x32\obj\x32\Release\test-single_thread"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG"
 				ExceptionHandling="0"
 				StringPooling="true"
@@ -60,14 +60,14 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\scripts\bin\vs2005_Release_x32\insight.lib"
+				AdditionalDependencies="..\..\bin\vs2005_Release_x32\insight.lib"
 				OutputFile="$(OutDir)\test-single_thread.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
@@ -106,8 +106,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\scripts\bin\vs2005_Debug_x32"
-			IntermediateDirectory="obj\x32\Debug\test-single_thread"
+			OutputDirectory="..\..\bin\vs2005_Debug_x32"
+			IntermediateDirectory="..\..\bin\vs2005_Debug_x32\obj\x32\Debug\test-single_thread"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -129,7 +129,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -149,14 +149,14 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\scripts\bin\vs2005_Debug_x32\insight.lib"
+				AdditionalDependencies="..\..\bin\vs2005_Debug_x32\insight.lib"
 				OutputFile="$(OutDir)\test-single_thread.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""

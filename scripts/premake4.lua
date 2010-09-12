@@ -5,7 +5,7 @@ solution "InsightProfiler"
 	location ( "../build/" .. _ACTION )
 	flags {"NoPCH", "NoRTTI", "NoManifest", "ExtraWarnings", "StaticRuntime", "NoExceptions" }
 	optimization_flags = { "OptimizeSpeed", "FloatFast", "NoPCH", "ExtraWarnings" }
-	includedirs { "." }
+	includedirs { ".." }
 	defines { "_HAS_EXCEPTIONS=0", "_STATIC_CPPLIB" }
 	
 -- CONFIGURATIONS
@@ -23,7 +23,8 @@ configuration "Release"
 for _, name in ipairs(configurations()) do	
 	for _, plat in ipairs(platforms()) do	
 		configuration { name, plat }
-		targetdir ( "bin/" .. _ACTION .. "_"  .. name  .. "_" .. plat )
+		targetdir ( "../bin/" .. _ACTION .. "_"  .. name  .. "_" .. plat )
+		objdir    ( "../bin/" .. _ACTION .. "_"  .. name  .. "_" .. plat .. "/obj" )
 	end
 end
 		

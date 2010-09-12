@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="insight"
-	ProjectGUID="{9D73ACA6-A782-894D-AA62-C78696AE3CAE}"
+	ProjectGUID="{90B16DAB-8612-CA48-B209-DC316BABD08A}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -14,15 +14,15 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\scripts\bin\vs2003_Release_x32"
-			IntermediateDirectory="obj\x32\Release\insight"
+			OutputDirectory="..\..\bin\vs2003_Release_x32"
+			IntermediateDirectory="..\..\bin\vs2003_Release_x32\obj\x32\Release\insight"
 			ConfigurationType="2"
 			CharacterSet="2"
 			>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG;INSIGHT_DLL"
 				ExceptionHandling="FALSE"
 				StringPooling="TRUE"
@@ -49,7 +49,7 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="..\..\scripts\bin\vs2003_Release_x32\insight.lib"
+				ImportLibrary="..\..\bin\vs2003_Release_x32\insight.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -67,7 +67,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG;INSIGHT_DLL"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 			/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"
@@ -87,15 +87,15 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\scripts\bin\vs2003_Debug_x32"
-			IntermediateDirectory="obj\x32\Debug\insight"
+			OutputDirectory="..\..\bin\vs2003_Debug_x32"
+			IntermediateDirectory="..\..\bin\vs2003_Debug_x32\obj\x32\Debug\insight"
 			ConfigurationType="2"
 			CharacterSet="2"
 			>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG;INSIGHT_DLL"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="FALSE"
@@ -121,7 +121,7 @@
 				GenerateDebugInformation="TRUE"
 				ProgramDataBaseFileName="$(OutDir)\insight.pdb"
 				SubSystem="2"
-				ImportLibrary="..\..\scripts\bin\vs2003_Debug_x32\insight.lib"
+				ImportLibrary="..\..\bin\vs2003_Debug_x32\insight.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -139,7 +139,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG;INSIGHT_DLL"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 			/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"

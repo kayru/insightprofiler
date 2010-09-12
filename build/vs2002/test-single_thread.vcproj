@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.00"
 	Name="test-single_thread"
-	ProjectGUID="{CA224064-1083-CB46-AA20-9C81C9A2252C}"
+	ProjectGUID="{D24BCA32-9B00-C146-B87A-AE8C7E553D11}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -14,15 +14,15 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\scripts\bin\vs2002_Release_x32"
-			IntermediateDirectory="obj\x32\Release\test-single_thread"
+			OutputDirectory="..\..\bin\vs2002_Release_x32"
+			IntermediateDirectory="..\..\bin\vs2002_Release_x32\obj\x32\Release\test-single_thread"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG"
 				ExceptionHandling="FALSE"
 				StringPooling="TRUE"
@@ -40,7 +40,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\scripts\bin\vs2002_Release_x32\insight.lib"
+				AdditionalDependencies="..\..\bin\vs2002_Release_x32\insight.lib"
 				OutputFile="$(OutDir)\test-single_thread.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
@@ -67,7 +67,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 			/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"
@@ -78,15 +78,15 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\scripts\bin\vs2002_Debug_x32"
-			IntermediateDirectory="obj\x32\Debug\test-single_thread"
+			OutputDirectory="..\..\bin\vs2002_Debug_x32"
+			IntermediateDirectory="..\..\bin\vs2002_Debug_x32\obj\x32\Debug\test-single_thread"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="FALSE"
@@ -104,7 +104,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\scripts\bin\vs2002_Debug_x32\insight.lib"
+				AdditionalDependencies="..\..\bin\vs2002_Debug_x32\insight.lib"
 				OutputFile="$(OutDir)\test-single_thread.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
@@ -130,7 +130,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG"
-				AdditionalIncludeDirectories="..\..\scripts"
+				AdditionalIncludeDirectories="..\.."
 			/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"
