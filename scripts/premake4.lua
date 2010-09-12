@@ -2,7 +2,7 @@ solution "InsightProfiler"
 	language "C++"
 	configurations { "Release", "Debug" }
 	platforms { "x32" }
-	location "build"
+	location ( "../build/" .. _ACTION )
 	flags {"NoPCH", "NoRTTI", "NoManifest", "ExtraWarnings", "StaticRuntime", "NoExceptions" }
 	optimization_flags = { "OptimizeSpeed", "FloatFast", "NoPCH", "ExtraWarnings" }
 	includedirs { "." }
@@ -23,7 +23,7 @@ configuration "Release"
 for _, name in ipairs(configurations()) do	
 	for _, plat in ipairs(platforms()) do	
 		configuration { name, plat }
-		targetdir ( "bin/" .. name .."_" ..plat )
+		targetdir ( "bin/" .. _ACTION .. "_"  .. name  .. "_" .. plat )
 	end
 end
 		
@@ -33,22 +33,22 @@ project "insight"
 	kind 			"SharedLib"
 	defines			{ "INSIGHT_DLL" }
 	links			{ "d3d9", "d3dx9", "dxerr" }
-	files 			{ "insight/redist/*.h", "insight/source/*.cpp", "insight/source/*.h", "insight/source/*.inl" }
+	files 			{ "../insight/redist/*.h", "../insight/source/*.cpp", "../insight/source/*.h", "../insight/source/*.inl" }
 
 
 project "test-single_thread"
 	kind 			"ConsoleApp"
 	links			{ "insight" }
-	files 			{ "tests/test-single_thread.cpp" }
+	files 			{ "../tests/test-single_thread.cpp" }
 
 
 project "test-single_thread_async"
 	kind 			"ConsoleApp"
 	links			{ "insight" }
-	files 			{ "tests/test-single_thread_async.cpp" }
+	files 			{ "../tests/test-single_thread_async.cpp" }
 
 
 project "test-multiple_threads"
 	kind 			"ConsoleApp"
 	links			{ "insight" }
-	files 			{ "tests/test-multiple_threads.cpp" }
+	files 			{ "../tests/test-multiple_threads.cpp" }
