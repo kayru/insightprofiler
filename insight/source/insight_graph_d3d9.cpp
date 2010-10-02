@@ -6,9 +6,6 @@
 #include <stdio.h>
 #include <algorithm>
 
-#pragma warning(disable:4702)
-#pragma warning(disable:4189)
-
 namespace
 {
 	inline bool check_result( HRESULT hr )
@@ -245,7 +242,6 @@ namespace InsightGui
 	{
 		m_max_thread_idx = std::max(thread_idx, m_max_thread_idx);
 				
-		float duration_ms	= float(double(t.time_exit - t.time_enter) / double(m_cycles_per_ms));
 		float start_ms		= float(double(t.time_enter - m_min_time) / double(m_cycles_per_ms));
 		float stop_ms		= float(double(t.time_exit - m_min_time) / double(m_cycles_per_ms));
 
@@ -294,7 +290,7 @@ namespace InsightGui
 		m_cycles_per_ms = cycles_per_ms;
 	}
 
-	void GraphD3D9::drag( long x, long y )
+	void GraphD3D9::drag( long x )
 	{
 		float width = float(m_rect.right - m_rect.left);
 		m_pos_x -= float(x) * (m_zoom/width);

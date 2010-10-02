@@ -10,9 +10,7 @@
 #include <DxErr.h>
 
 #include "insight/redist/insight.h"
-
 #include "insight_utils.h"
-#pragma warning(disable:4100)
 
 namespace InsightGui
 {
@@ -73,7 +71,7 @@ namespace InsightGui
 		void set_timeframe(Insight::cycle_metric min_time, Insight::cycle_metric max_time, Insight::cycle_metric cycles_per_ms);
 		
 		void zoom(float delta_z);
-		void drag(long x, long y);
+		void drag(long x);
 		void select(long a, long b);
 		void set_cursor(long cx, long cy);
 

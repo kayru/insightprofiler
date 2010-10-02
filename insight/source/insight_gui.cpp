@@ -287,7 +287,7 @@ namespace
 			}
 			else if( g_dragging )
 			{
-				g_graph.drag(LOWORD(lparam) - g_mouse_down_x, HIWORD(lparam) - g_mouse_down_y);
+				g_graph.drag(LOWORD(lparam) - g_mouse_down_x);
 				g_mouse_down_x = LOWORD(lparam);
 				g_mouse_down_y = HIWORD(lparam);
 			}
