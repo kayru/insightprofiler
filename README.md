@@ -54,14 +54,14 @@ the instance falls out of scope.
 
 Here is a typical Insight::Scope use example:
 
-void important_work()
-{
-	Insight::Scope scope_timing("Important work");
-	for(int i=0; i<x; ++i)
+	void important_work()
 	{
-		do_some_stuff();
+		Insight::Scope scope_timing("Important work");
+		for(int i=0; i<x; ++i)
+		{
+			do_some_stuff();
+		}
 	}
-}
 
 It is also possible to use __FUNCTION__ preprocessor macro as a profile event identifier, 
 which will automatically expand to function name at compile-time.
@@ -69,18 +69,18 @@ which will automatically expand to function name at compile-time.
 A recommended way to integrate Insight into your project is to write several helper macros
 which would wrap Insight::initialize(), Insight::terminate() and Insight::Scope. For example:
 
-// Profiler.h
-#ifdef USE_INSIGHT_PROFILER
-	#include <insight.h>
-	#pragma comment(lib, "insight.lib")
-	#define INSIGHT_INITIALIZE	Insight::initialize();
-	#define INSIGHT_TERMINATE	Insight::terminate();
-	#define INSIGHT_SCOPE(name) Insight::Scope __insight_scope(name);
-#else //USE_INSIGHT_PROFILER
-	#define INSIGHT_INITIALIZE
-	#define INSIGHT_TERMINATE
-	#define INSIGHT_SCOPE(name)
-#endif //USE_INSIGHT_PROFILER
+	// Profiler.h
+	#ifdef USE_INSIGHT_PROFILER
+		#include <insight.h>
+		#pragma comment(lib, "insight.lib")
+		#define INSIGHT_INITIALIZE	Insight::initialize();
+		#define INSIGHT_TERMINATE	Insight::terminate();
+		#define INSIGHT_SCOPE(name) Insight::Scope __insight_scope(name);
+	#else //USE_INSIGHT_PROFILER
+		#define INSIGHT_INITIALIZE
+		#define INSIGHT_TERMINATE
+		#define INSIGHT_SCOPE(name)
+	#endif //USE_INSIGHT_PROFILER
 
 
 Using GUI window
