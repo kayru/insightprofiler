@@ -9,14 +9,22 @@ int main()
 
 	for(int i = 0; i<1000000; ++i)
 	{
-		Insight::Scope scope_timing("Main loop (sleep 50ms)");
+		Insight::Scope scope_timing("Main loop");
 
 		for(int i=0; i<10; ++i)
 		{
-			Insight::Scope scope_timing("Inner loop (sleep 20ms)");
-			Sleep(20);
+			Insight::Scope scope_timing("Inner loop");
+			{
+				Insight::Scope scope_timing("Sleep 1ms");
+				Sleep(1);
+			}
 		}
-		Sleep(50);
+
+		{
+			Insight::Scope scope_timing("Sleep 2ms");
+			Sleep(2);
+		}
+
 		Insight::update();
 	}
 

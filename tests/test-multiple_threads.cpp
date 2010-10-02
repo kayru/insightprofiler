@@ -14,7 +14,10 @@ DWORD WINAPI threadproc(void*)
 			Insight::Scope scope_timing("Inner loop (sleep 20ms)");
 			Sleep(20);
 		}
-		Sleep(50);
+		{
+			Insight::Scope scope_timing("Sleep 50ms");
+			Sleep(50);
+		}
 	}
 
 	return 0;

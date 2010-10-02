@@ -1,7 +1,0 @@
-Build instructions:
-
-1.	Install DirectX SDK if it isn't already installed (http://msdn.microsoft.com/en-us/directx/aa937788.aspx)
-2.	Run one of the premake batch files in the "scripts" directory (based on your VisualStudio version).
-3.	Open generated solution file in "build" directory.
-	It should now build.
-
