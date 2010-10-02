@@ -7,33 +7,25 @@
 	#define INSIGHT_API __declspec( dllimport )
 #endif //INSIGHT_DLL
 
-// profiler helper macros
-
-#ifdef INSIGHT_ENABLE
-	#define INSIGHT_SCOPE(name) Insight::Scope __insight_scope(name);
-#else 
-	#define INSIGHT_SCOPE(name)
-#endif //INSIGHT_ENABLE
-
 namespace Insight
 {
 	typedef unsigned __int64 cycle_metric;
 
 	struct Token
 	{
-		unsigned __int64	time_enter;
-		unsigned __int64	time_exit;
-		unsigned long		thread_id;
-		const char*			name;
+		cycle_metric	time_enter;
+		cycle_metric	time_exit;
+		unsigned long	thread_id;
+		const char*		name;
 	};
 
-	extern INSIGHT_API void initialize(bool asynchronous=true);			// call this at application startup
-	extern INSIGHT_API void terminate();								// call this at application shutdown
+	INSIGHT_API void initialize(bool asynchronous=true);		// call this at application startup
+	INSIGHT_API void terminate();								// call this at application shutdown
 
-	extern INSIGHT_API void update();									// call this once a frame
+	INSIGHT_API void update();									// call this once a frame if using synchronous mode
 
-	extern INSIGHT_API Token* enter(const char* name);					// start profile event (enter scope)
-	extern INSIGHT_API void   exit(Token* token);						// finish profile event (exit scope)
+	INSIGHT_API Token* enter(const char* name);					// start profile event (enter scope); 'name' must be static
+	INSIGHT_API void   exit(Token* token);						// finish profile event (exit scope)
 
 	class Node
 	{
