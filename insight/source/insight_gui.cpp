@@ -75,6 +75,7 @@ namespace
 		size_t	m_pos;
 	};
 
+	bool g_should_exit = false;
 	bool g_asynchronous = false;
 	std::vector<char*> g_temporary_strings;
 	HANDLE	g_thread = 0;
@@ -82,6 +83,8 @@ namespace
 
 	InsightGui::GraphD3D9	g_graph;
 	HWND					g_hwnd;
+	
+
 	bool g_dragging;
 	bool g_selecting;
 	long g_mouse_down_x;
@@ -352,7 +355,7 @@ namespace
 
 		DWORD	window_style = WS_OVERLAPPEDWINDOW;
 
-		g_hwnd = CreateWindowA("INSIGHTPROFILERWC", "Insight", window_style, 10, 10, 800, 400, NULL, NULL, hinst, NULL); 
+		g_hwnd = CreateWindow("INSIGHTPROFILERWC", "Insight", window_style, 10, 10, 800, 400, NULL, NULL, hinst, NULL); 
 
 		ShowWindow(g_hwnd, SW_SHOWNORMAL);
 		UpdateWindow(g_hwnd);
@@ -381,8 +384,16 @@ namespace
 		bool should_continue = true;
 		while(should_continue)
 		{
-			should_continue = update_gui_window();
-			Sleep(1);
+			if( g_should_exit )
+			{
+				DestroyWindow(g_hwnd);
+				break;
+			}
+			else
+			{
+				should_continue = update_gui_window();
+				Sleep(1);
+			}
 		}
 		return 0;
 	}
@@ -417,13 +428,20 @@ namespace InsightGui
 
 	void terminate()
 	{
-		WaitForSingleObject(g_thread, 10000);
-		CloseHandle(g_thread);
+		if( g_asynchronous )
+		{
+			g_should_exit = true;
+			WaitForSingleObject(g_thread, 10000);
+			CloseHandle(g_thread);
+		}
+		else
+		{
+			DestroyWindow(g_hwnd);
+		}
 		for( size_t i=0; i<g_temporary_strings.size(); ++i )
 		{
 			free(g_temporary_strings[i]);
 		}
-		DestroyWindow(g_hwnd);
 	}
 
 	extern void update()

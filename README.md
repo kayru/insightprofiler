@@ -1,4 +1,4 @@
-Insight Profiler version 1.0-RC1, by Yuriy O'Donnell
+Insight Profiler version 1.0-RC2, by Yuriy O'Donnell
 ================================================
 
 Insight is an instrumented thread profiler with real-time timing data display.
