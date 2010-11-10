@@ -469,7 +469,7 @@ namespace InsightGui
 			float y1 = 0;
 			float y2 = 10000;
 
-			DWORD col = 0x20FFFFFF;
+			DWORD col = 0x60FFFFFF;
 
 			m_tmp_vertices.push(Vertex(x1, y1, 0.0f, 0, 0, col));
 			m_tmp_vertices.push(Vertex(x2, y1, 0.0f, 1, 0, col));
