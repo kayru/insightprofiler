@@ -3,3 +3,5 @@ release/*
 *.ncb
 *.suo
 *.user
+*.sdf
+
