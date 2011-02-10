@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="Release|Win32">
+			<Configuration>Release</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug|Win32">
+			<Configuration>Debug</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>{1D251D82-D63A-41A3-BA5B-D49984DF809E}</ProjectGuid>
+		<RootNamespace>insight</RootNamespace>
+		<Keyword>Win32Proj</Keyword>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<CharacterSet>MultiByte</CharacterSet>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+		<UseDebugLibraries>false</UseDebugLibraries>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<CharacterSet>MultiByte</CharacterSet>
+		<UseDebugLibraries>true</UseDebugLibraries>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+	<ImportGroup Label="ExtensionSettings">
+	</ImportGroup>
+	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<PropertyGroup Label="UserMacros" />
+	<PropertyGroup>
+		<_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+		<OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\bin\vs2010_Release_x32\</OutDir>
+		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\bin\vs2010_Release_x32\obj\x32\Release\insight\</IntDir>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">insight</TargetName>
+		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</IgnoreImportLibrary>
+		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+		<GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
+		<OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\bin\vs2010_Debug_x32\</OutDir>
+		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\bin\vs2010_Debug_x32\obj\x32\Debug\insight\</IntDir>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">insight</TargetName>
+		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</IgnoreImportLibrary>
+		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+		<GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+		<ClCompile>
+			<Optimization>MaxSpeed</Optimization>
+			<AdditionalIncludeDirectories>..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG;INSIGHT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<MinimalRebuild>false</MinimalRebuild>
+			<StringPooling>true</StringPooling>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<PrecompiledHeader></PrecompiledHeader>
+			<WarningLevel>Level4</WarningLevel>
+		<ExceptionHandling>false</ExceptionHandling>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<DebugInformationFormat></DebugInformationFormat>
+		</ClCompile>
+		<ResourceCompile>
+			<PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;NDEBUG;INSIGHT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+		</ResourceCompile>
+		<Link>
+			<AdditionalDependencies>d3d9.lib;d3dx9.lib;dxerr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)insight.dll</OutputFile>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<SubSystem>Windows</SubSystem>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<OptimizeReferences>true</OptimizeReferences>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<ImportLibrary>..\..\bin\vs2010_Release_x32\insight.lib</ImportLibrary>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+		<ClCompile>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG;INSIGHT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<MinimalRebuild>true</MinimalRebuild>
+			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+			<SmallerTypeCheck>true</SmallerTypeCheck>
+			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<PrecompiledHeader></PrecompiledHeader>
+			<WarningLevel>Level4</WarningLevel>
+		<ExceptionHandling>false</ExceptionHandling>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+		</ClCompile>
+		<ResourceCompile>
+			<PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_STATIC_CPPLIB;_DEBUG;INSIGHT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+		</ResourceCompile>
+		<Link>
+			<AdditionalDependencies>d3d9.lib;d3dx9.lib;dxerr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)insight.dll</OutputFile>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<SubSystem>Windows</SubSystem>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<ProgramDataBaseFileName>$(OutDir)insight.pdb</ProgramDataBaseFileName>
+			<ImportLibrary>..\..\bin\vs2010_Debug_x32\insight.lib</ImportLibrary>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\insight\redist\insight.h" />
+		<ClInclude Include="..\..\insight\source\insight_backend.h" />
+		<ClInclude Include="..\..\insight\source\insight_background_png.h" />
+		<ClInclude Include="..\..\insight\source\insight_bar_png.h" />
+		<ClInclude Include="..\..\insight\source\insight_graph_d3d9.h" />
+		<ClInclude Include="..\..\insight\source\insight_gui.h" />
+		<ClInclude Include="..\..\insight\source\insight_utils.h" />
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\insight\source\insight.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\insight\source\insight_backend.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\insight\source\insight_graph_d3d9.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\insight\source\insight_gui.cpp">
+		</ClCompile>
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+	<ImportGroup Label="ExtensionTargets">
+	</ImportGroup>
+</Project>

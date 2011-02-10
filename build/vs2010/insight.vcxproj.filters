@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="insight">
+			<UniqueIdentifier>{0592A438-7A9E-D34B-AD13-67268CEA8A50}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="insight\redist">
+			<UniqueIdentifier>{466F862C-CCB6-4C40-8D63-B56B01702A5C}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="insight\source">
+			<UniqueIdentifier>{A60A0423-EE53-5E45-928E-6B03F59868FF}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\insight\redist\insight.h">
+			<Filter>insight\redist</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\insight\source\insight_backend.h">
+			<Filter>insight\source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\insight\source\insight_background_png.h">
+			<Filter>insight\source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\insight\source\insight_bar_png.h">
+			<Filter>insight\source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\insight\source\insight_graph_d3d9.h">
+			<Filter>insight\source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\insight\source\insight_gui.h">
+			<Filter>insight\source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\insight\source\insight_utils.h">
+			<Filter>insight\source</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\insight\source\insight.cpp">
+			<Filter>insight\source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\insight\source\insight_backend.cpp">
+			<Filter>insight\source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\insight\source\insight_graph_d3d9.cpp">
+			<Filter>insight\source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\insight\source\insight_gui.cpp">
+			<Filter>insight\source</Filter>
+		</ClCompile>
+	</ItemGroup>
+</Project>
