@@ -19,8 +19,6 @@
 #define WM_MOUSEWHEEL 0x020A
 #endif //WM_MOUSEWHEEL
 
-
-
 namespace
 {
 	const size_t MAX_REPORT_TEXT =	2048;
@@ -92,7 +90,9 @@ namespace
 	long g_selection_a;
 	long g_selection_b;
 	bool g_paused;
-	Insight::cycle_metric	g_cycles_per_ms = 1;
+	bool g_start_minimized;
+
+	Insight::cycle_metric g_cycles_per_ms = 1;
 
 	//////////////////////////////////////////////////////////////////////////
 
@@ -139,7 +139,6 @@ namespace
 			}
 		}
 	}
-
 
 
 	struct TokenSorter
@@ -357,7 +356,15 @@ namespace
 
 		g_hwnd = CreateWindow("INSIGHTPROFILERWC", "Insight", window_style, 10, 10, 800, 400, NULL, NULL, hinst, NULL); 
 
-		ShowWindow(g_hwnd, SW_SHOWNORMAL);
+		if( g_start_minimized )
+		{
+			ShowWindow(g_hwnd, SW_SHOWNOACTIVATE|SW_SHOWMINIMIZED);
+		}
+		else
+		{
+			ShowWindow(g_hwnd, SW_SHOWNORMAL);
+		}
+		
 		UpdateWindow(g_hwnd);
 	}
 
@@ -401,7 +408,7 @@ namespace
 
 namespace InsightGui
 {
-	void initialize(bool asynchronous)
+	void initialize(bool asynchronous, bool start_minimized)
 	{
 		g_asynchronous = asynchronous;
 		g_cycles_per_ms = __rdtsc() / Insight::cycle_metric(get_time_ms());
@@ -414,6 +421,8 @@ namespace InsightGui
 		g_selection_b = 0;
 
 		g_paused = false;
+
+		g_start_minimized = start_minimized;
 
 		if( g_asynchronous )
 		{

@@ -19,13 +19,13 @@ namespace Insight
 		const char*		name;
 	};
 
-	INSIGHT_API void initialize(bool asynchronous=true);		// call this at application startup
-	INSIGHT_API void terminate();								// call this at application shutdown
+	INSIGHT_API void initialize(bool asynchronous=true, bool start_minimized=false);	// call this at application startup
+	INSIGHT_API void terminate();														// call this at application shutdown
 
-	INSIGHT_API void update();									// call this once a frame if using synchronous mode
+	INSIGHT_API void update();															// call this once a frame if using synchronous mode
 
-	INSIGHT_API Token* enter(const char* name);					// start profile event (enter scope); 'name' must be static
-	INSIGHT_API void   exit(Token* token);						// finish profile event (exit scope)
+	INSIGHT_API Token* enter(const char* name);											// start profile event (enter scope); 'name' must be static
+	INSIGHT_API void   exit(Token* token);												// finish profile event (exit scope)
 
 	class Node
 	{

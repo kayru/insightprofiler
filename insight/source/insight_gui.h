@@ -4,7 +4,7 @@
 
 namespace InsightGui
 {
-	extern void initialize(bool asynchronous);
+	extern void initialize(bool asynchronous, bool start_minimized);
 	extern void terminate();
 	extern void update();
 }

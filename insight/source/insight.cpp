@@ -19,12 +19,12 @@ namespace Insight
 
 	//////////////////////////////////////////////////////////////////////////
 
-	void initialize(bool asynchronous)
+	void initialize(bool asynchronous, bool start_minimized)
 	{
 		g_asynchronous = asynchronous;
 
 		InsightBackend::g_token_dummy.name = "!!! DUMMY INSIGHT TOKEN !!!";
-		InsightGui::initialize(asynchronous);
+		InsightGui::initialize(asynchronous, start_minimized);
 	}
 
 	void terminate()
