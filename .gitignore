@@ -4,4 +4,5 @@ release/*
 *.suo
 *.user
 *.sdf
-
+*.opensdf
+*.ipch
