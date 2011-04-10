@@ -45,81 +45,6 @@ namespace InsightUtils
 
 	//////////////////////////////////////////////////////////////////////////
 
-	struct Spinlock
-	{
-		inline Spinlock()
-		{
-			lock.set(0);
-		}
-
-		inline void enter()
-		{
-			while(lock.cas(1,0)==1)
-			{
-				// twiddle thumbs
-			}
-		}
-		inline void exit()
-		{
-			lock.set(0);
-		}
-
-		AtomicInt lock;
-	};
-
-	//////////////////////////////////////////////////////////////////////////
-
-	template <typename T, size_t SIZE>
-	class Pool
-	{
-
-	public:
-
-		Pool()
-		{
-			pos = 0;
-			for( size_t i=0; i<SIZE; ++i )
-			{
-				freelist[i] = &data[i];
-			}
-		}
-
-		~Pool()
-		{
-		}
-
-		inline T* alloc()
-		{	
-			lock.enter();
-			T* res = NULL;
-			if( pos < SIZE )
-			{
-				res = freelist[pos];
-				++pos;
-			}
-			lock.exit();
-			return res;
-		}
-
-		inline void free(T* ptr) 
-		{
-			lock.enter();
-			--pos;
-			freelist[pos] = ptr;
-			lock.exit();
-		}
-
-	private:
-
-		T			data[SIZE];
-		T*			freelist[SIZE];
-		size_t		pos;
-		Spinlock	lock;
-
-	};
-
-	//////////////////////////////////////////////////////////////////////////
-
 	template <typename T, size_t SIZE>
 	class Buffer
 	{
@@ -145,7 +70,7 @@ namespace InsightUtils
 			}
 		}
 
-		inline long lock()
+		inline long lock_and_get_size()
 		{
 			return pos.set(SIZE+1);
 		}

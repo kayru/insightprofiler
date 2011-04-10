@@ -22,8 +22,6 @@ namespace Insight
 	void initialize(bool asynchronous, bool start_minimized)
 	{
 		g_asynchronous = asynchronous;
-
-		InsightBackend::g_token_dummy.name = "!!! DUMMY INSIGHT TOKEN !!!";
 		InsightGui::initialize(asynchronous, start_minimized);
 	}
 
@@ -37,32 +35,21 @@ namespace Insight
 		InsightGui::update();
 	}
 
-	Token* enter(const char* name)
+	Token enter(const char* name)
 	{
-		Token* e = InsightBackend::g_token_pool.alloc();
+		Token token;
 
-		if( e )
-		{
-			e->name = name;
-			e->time_enter = __rdtsc();
-			e->thread_id = GetCurrentThreadId();
-		}
-		else
-		{
-			e = &InsightBackend::g_token_dummy;
-		}
+		token.time_enter = __rdtsc();
+		token.thread_id = GetCurrentThreadId();
+		token.name = name;
 
-		return e;
+		return token;
 	}
 
-	void exit( Token* e )
+	void exit( Token& token )
 	{
-		if( e != &InsightBackend::g_token_dummy )
-		{
-			e->time_exit = __rdtsc();
-			InsightBackend::g_token_buffer.push(*e);
-			InsightBackend::g_token_pool.free(e);
-		}
+		token.time_exit = __rdtsc();
+		InsightBackend::g_token_buffer.push(token);
 	}
 
 }

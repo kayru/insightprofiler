@@ -24,15 +24,14 @@ namespace Insight
 
 	INSIGHT_API void update();															// call this once a frame if using synchronous mode
 
-	INSIGHT_API Token* enter(const char* name);											// start profile event (enter scope); 'name' must be static
-	INSIGHT_API void   exit(Token* token);												// finish profile event (exit scope)
+	INSIGHT_API Token enter(const char* name);											// start profile event (enter scope); 'name' must be static
+	INSIGHT_API void  exit(Token& token);												// finish profile event (exit scope)
 
 	class Node
 	{
 	public:
 		Node(const char* name)
-			: m_token(0)
-			, m_name(name)
+			: m_name(name)
 		{
 		}
 		__forceinline void start()
@@ -42,11 +41,10 @@ namespace Insight
 		__forceinline void stop()
 		{
 			Insight::exit(m_token);
-			m_token = 0;
 		}
 		__forceinline const char* name() const { return m_name; }
 	private:
-		Token*		m_token;
+		Token m_token;
 		const char* m_name;
 	};
 
@@ -54,12 +52,10 @@ namespace Insight
 	{
 	public:
 		explicit __forceinline Scope(const char* name)
-			: m_token(0)
 		{
 			m_token = Insight::enter(name);
 		}
 		explicit __forceinline Scope(const Node& node)
-			: m_token(0)
 		{
 			m_token = Insight::enter(node.name());
 		}
@@ -68,9 +64,9 @@ namespace Insight
 			Insight::exit(m_token);
 		}
 	private:
-		Token*	m_token;
+		Token	m_token;
 	};
-	
+
 }
 
 #endif //__INSIGHT_H__
